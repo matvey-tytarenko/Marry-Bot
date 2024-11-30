@@ -1,4 +1,4 @@
-from telebot import *
+from telebot import TeleBot
 from g4f.client import Client
 from config import API
 
@@ -6,41 +6,32 @@ bot = TeleBot(API)
 
 def get_response(prompt):
     client = Client()
-    response = client.chat.completions.create(
-        model="gpt-4o",
-        messages=[{
-            "role": "user",
-            "content": prompt,
-        }]
-    )
-
     try:
-        if(prompt.startswith("марина" or "привет")):
-            return response.choices[0].message.content
-        else:
-            return response.choices[0].message.content
-    except TypeError as e:
-        print(f"Error: {e.message}")
-    except ValueError as e:
-        print(f"Error: {e.message}")
-    except IndexError as e:
-        print()
+        response = client.chat.completions.create(
+            model="gpt-4o",
+            messages=[{"role": "user", "content": prompt}]
+        )
+        return response.choices[0].message.content
+    except (TypeError, ValueError, IndexError) as e:
+        print(f"Error: {str(e)}")
+        return "К сожалению, я не могу сейчас ответить."
 
 # Create Telegram Bot
 @bot.message_handler(commands=['start'])
 def start(message):
-    text = f"Приветик {message.from_user.first_name} я твоя девушка с которой ты можешь поразговаривать!"
+    text = f"Приветик {message.from_user.first_name}, я твоя девушка, с которой ты можешь поразговаривать!"
     bot.send_message(message.chat.id, text=text)
-    photo = open('hello_picture.jpg', 'rb')
-    bot.send_photo(message.chat.id, photo)
+    with open('hello_picture.jpg', 'rb') as photo:
+        bot.send_photo(message.chat.id, photo)
 
 @bot.message_handler(content_types=['text'])
 def messages(message):
+    adult = ["у тебя красивая грудь", "У тебя красивая грудь", "У тебя красивые сиськи" "у тебя красивые сиськи"]
 
-    if message.text == "у тебя красивая грудь" or "у тебя красивые сиськи":
-        bot.send_message(message.chat.id, "извращенец")
-        photo = open('chest.jpg', 'rb')
-        bot.send_photo(message.chat.id, photo)
+    if message.text in adult:
+        bot.send_message(message.chat.id, "Извращенец!")
+        with open('chest.jpg', 'rb') as photo:
+            bot.send_photo(message.chat.id, photo)
     else:
         bot.send_message(message.chat.id, get_response(message.text))
 
