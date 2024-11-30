@@ -27,18 +27,32 @@ def start(message):
 
 @bot.message_handler(content_types=['text'])
 def messages(message):
-    adult = ["у тебя красивая грудь", "У тебя красивая грудь", "У тебя красивые сиськи" "у тебя красивые сиськи", "Ты секси", "ты секси"]
+    chest = ["у тебя красивая грудь", "У тебя красивая грудь", "У тебя красивые сиськи" "у тебя красивые сиськи", "Ты секси", "ты секси"]
+    ass = ["У тебя классная попа", "у тебя классная попа", "скинь жопу", "Скинь жопу", "Скинь попу", "скинь попу"]
     cute = ["я тебя люблю", "ты милая", "ты красивая", "ты мне нравишься", "Я тебя люблю", "Ты мне нравишься", "Ты милая", "Ты красивая"]
 
-    if message.text in adult:
+    if message.text in chest:
         collage = ['chest.jpg', 'sexy.jpg']
         bot.send_message(message.chat.id, "Извращенец!")
         with open(random.choice(collage), 'rb') as photo:
             bot.send_photo(message.chat.id, photo)
     elif message.text in cute:
+        collage = ['cute.jpg', 'sex.jpg']
         bot.send_message(message.chat.id, "Ой п..п..п..Правда?")
-        with open('cute.jpg', 'rb') as photo:
+        with open(random.choice(collage), 'rb') as photo:
             bot.send_photo(message.chat.id, photo)
+            bot.send_message(message.chat.id, "💋")
+    elif message.text in ass:
+        if message.text.startswith("скинь"):
+         bot.send_message(message.chat.id, "Извращенец!")
+         with open("ass.jpg", "rb") as photo:
+             bot.send_photo(message.chat.id, photo)
+             bot.send_message(message.chat.id, "❤️")
+        else:
+            bot.send_message(message.chat.id, "спасибо за комплимент!")
+            with open("ass.jpg", "rb") as photo:
+             bot.send_photo(message.chat.id, photo)
+             bot.send_message(message.chat.id, "❤️")
     else:
         bot.send_message(message.chat.id, get_response(message.text))
 
