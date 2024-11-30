@@ -28,12 +28,17 @@ def start(message):
 @bot.message_handler(content_types=['text'])
 def messages(message):
     adult = ["у тебя красивая грудь", "У тебя красивая грудь", "У тебя красивые сиськи" "у тебя красивые сиськи", "Ты секси", "ты секси"]
+    cute = ["я тебя люблю", "ты милая", "ты красивая", "ты мне нравишься", "Я тебя люблю", "Ты мне нравишься", "Ты милая", "Ты красивая"]
 
     if message.text in adult:
         collage = ['chest.jpg', 'sexy.jpg']
         bot.send_message(message.chat.id, "Извращенец!")
         with open(random.choice(collage), 'rb') as photo:
             bot.send_photo(message.chat.id, photo)
+    elif message.text in cute:
+        bot.send_message(message.chat.id, "Ой п..п..п..Правда?")
+        with open('cute.jpg', 'rb') as photo:
+            bot.send_photo(message.content.id, photo)
     else:
         bot.send_message(message.chat.id, get_response(message.text))
 
