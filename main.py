@@ -1,6 +1,7 @@
 from telebot import TeleBot
 from g4f.client import Client
 from config import API
+import random
 
 bot = TeleBot(API)
 
@@ -26,11 +27,12 @@ def start(message):
 
 @bot.message_handler(content_types=['text'])
 def messages(message):
-    adult = ["у тебя красивая грудь", "У тебя красивая грудь", "У тебя красивые сиськи" "у тебя красивые сиськи"]
+    adult = ["у тебя красивая грудь", "У тебя красивая грудь", "У тебя красивые сиськи" "у тебя красивые сиськи", "Ты секси", "ты секси"]
 
     if message.text in adult:
+        collage = ['chest.jpg', 'sexy.jpg']
         bot.send_message(message.chat.id, "Извращенец!")
-        with open('chest.jpg', 'rb') as photo:
+        with open(random.choice(collage), 'rb') as photo:
             bot.send_photo(message.chat.id, photo)
     else:
         bot.send_message(message.chat.id, get_response(message.text))
