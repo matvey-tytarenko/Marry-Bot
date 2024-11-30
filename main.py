@@ -38,7 +38,7 @@ def messages(message):
     elif message.text in cute:
         bot.send_message(message.chat.id, "Ой п..п..п..Правда?")
         with open('cute.jpg', 'rb') as photo:
-            bot.send_photo(message.content.id, photo)
+            bot.send_photo(message.chat.id, photo)
     else:
         bot.send_message(message.chat.id, get_response(message.text))
 
