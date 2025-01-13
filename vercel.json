@@ -1,0 +1,12 @@
+{
+    "version": 2,
+    "builds": [
+        {
+            "src": "bot.py",
+            "use": "@vercel/python"
+        }
+    ],
+    "env": {
+        "API": "7826250331:AAHVqt6qpNpBr12mi0-5A51avlmbZKiyK64"
+    }
+}
