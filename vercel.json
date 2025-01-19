@@ -2,11 +2,14 @@
     "version": 2,
     "builds": [
         {
-            "src": "bot.py",
+            "src": "api/index.py",
             "use": "@vercel/python"
         }
     ],
-    "env": {
-        "API": "7826250331:AAHVqt6qpNpBr12mi0-5A51avlmbZKiyK64"
-    }
+    "routes": [
+        {
+            "src": "/.*",
+            "dest": "api/index.py"
+        }
+    ]
 }
